@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    Hello Vending UI
+    <Sidebar />
+    <Main />
   </div>
 </template>
 
@@ -10,3 +11,9 @@ export default {
   name: 'Home',
 }
 </script>
+
+<style lang="sass">
+  .home
+    display: flex
+    height: 100%
+</style>
