@@ -7,6 +7,11 @@ export default [
     component: Home
   },
   {
+    path: '/order/:id',
+    name: 'Order',
+    component: () => import ('@/views/Order.vue')
+  },
+  {
     path: '*',
     name: 'NotFound',
     component: Home

@@ -5,7 +5,7 @@
     </div>
     <p class="product-card__description">{{product.description}}</p>
     <div class="product-card__actions">
-      <button class="button button_accent product-card__buy">Купить</button>
+      <router-link tag="a" :to="'/order/' + product.id" class="button button_accent product-card__buy">Купить</router-link>
       <div class="product-card__price">{{product.price}} &#8381;</div>
     </div>
   </div>
@@ -60,5 +60,7 @@
     &__price
       font-size: pxtorem(24)
       font-weight: 500
+    &__buy
+      text-decoration: none
 
 </style>
