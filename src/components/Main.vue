@@ -4,7 +4,7 @@
       <div class="main__content-wrap">
         <header class="main__header">
           <span class="main__title">Весь ассортимент</span>
-          <span class="main__count">48 товаров</span>
+          <span class="main__count">{{ products.length }} товаров</span>
         </header>
         <div class="main__lists">
           <ProductCard :product='product' v-for="product in products" :key="product.id" />

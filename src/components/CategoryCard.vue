@@ -1,5 +1,7 @@
 <template>
-  <div class="category-card" :class='{"is-active" : currentCategory === category.id}'>
+  <div class="category-card"
+       :class='{"is-active" : currentCategory === category.id}'
+       v-on:click="$store.commit('setCurrentCategory', category.id)">
     <div class="category-card__image">
       <img :src="category.image" :alt="category.name">
     </div>
