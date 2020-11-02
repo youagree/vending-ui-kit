@@ -14,7 +14,7 @@ export default {
       .then(response => {
         let categories = response.data
         categories.map(function (item) {
-          item.image = 'data:image/jpeg;base64,' + item.image
+          item.image = 'data:image/png;base64,' + item.image
         })
         state.categories = categories
       });
@@ -34,7 +34,7 @@ export default {
       if(dev_mode){
         url = `category${state.currentCategory}.json`
       } else {
-        `category/${state.currentCategory}`
+        `categories/${state.currentCategory}`
       }
       axios.get(url)
         .then(response => {
@@ -42,7 +42,7 @@ export default {
           let products = category.products
 
           products.map(function (item) {
-            item.image = 'data:image/jpeg;base64,' + item.image
+            item.image = 'data:image/png;base64,' + item.image
           })
           state.products = products
         });
