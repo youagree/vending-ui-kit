@@ -34,7 +34,7 @@ export default {
       if(dev_mode){
         url = `category${state.currentCategory}.json`
       } else {
-        `categories/${state.currentCategory}`
+        url = `categories/${state.currentCategory}`
       }
       axios.get(url)
         .then(response => {

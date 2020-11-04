@@ -17,7 +17,7 @@
   export default {
     name: 'Sidebar',
     mounted() {
-      this.$store.commit('setCategories', 'test')
+      this.$store.commit('setCategories')
     },
     watch: {
       categories() {this.$store.commit('setCurrentCategory')},
