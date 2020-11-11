@@ -28,7 +28,7 @@
 
 <style lang="sass">
 .category-card
-  background-color: $color-card-category
+  background-color: rgba(245,245,245,0.1)
   margin-bottom: 16px
   border: 1px solid transparent
   border-radius: 12px
@@ -36,7 +36,7 @@
   box-shadow: $g-box-shadow
   position: relative
   .overlay
-    background-color: rgba(0,0,0,0.1)
+    background-color: rgba(245,245,245,0.1)
     border-radius: 12px
     display: block
     position: absolute
@@ -48,9 +48,10 @@
     bottom: 0
     z-index: 2
   &.is-active
+    background-color: #fff
     border-color: $g-color-border-active
     .overlay
-      background-color: rgba(0,0,0,0)
+      background-color: rgba(255, 255, 255, 0.1)
   &__image
     position: relative
     display: flex
