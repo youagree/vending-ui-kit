@@ -10,21 +10,21 @@
       <OrderCard :product="products[1]" class="order__card" />
     </div>
     <div class="order__main">
-      <div class="order__box is-done">
+      <div class="order__box" v-bind:class="getBoxClass(1)">
         <OrderBoxHeader step="1" label="Выберите способ оплаты" />
-        <div class="order__box-content">
+        <div class="order__box-content"  v-if="stepStates[1]">
           <PaymentMethod />
         </div>
       </div>
-      <div class="order__box is-active">
+      <div class="order__box" v-bind:class="getBoxClass(2)">
         <OrderBoxHeader step="2" label="Оплата" />
-        <div class="order__box-content">
+        <div class="order__box-content" v-if="stepStates[2]">
           <Payment />
         </div>
       </div>
-      <div class="order__box">
+      <div class="order__box" v-bind:class="getBoxClass(3)">
         <OrderBoxHeader step="3" label="Получение товара" />
-        <div class="order__box-content">
+        <div class="order__box-content"  v-if="stepStates[3]">
           <ReceiptGood />
         </div>
       </div>
@@ -37,6 +37,24 @@
 
   export default {
     name: 'Order',
+    data: function() {
+      return {
+        isActive: true,
+        stepStates: {1:1,2:0,3:0}
+      }
+    },
+    methods: {
+      getBoxClass(step){
+        switch (this.stepStates[step]) {
+          case 1:
+            return 'is-active'
+          case 2:
+            return 'is-done'
+          default:
+            return ''
+        }
+      }
+    },
     computed: {
       ...mapGetters(['products'])
     }
