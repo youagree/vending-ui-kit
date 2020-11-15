@@ -7,7 +7,7 @@
         </svg>
         <span>На главный экран</span>
       </router-link>
-      <OrderCard :product="products[1]" class="order__card" />
+      <OrderCard :product="product" class="order__card" />
     </div>
     <div class="order__main">
       <div class="order__box" v-bind:class="getBoxClass(1)">
@@ -37,9 +37,12 @@
 
   export default {
     name: 'Order',
+    created() {
+      const prodId = this.$route.params.id
+      this.$store.commit('setProduct', prodId)
+    },
     data: function() {
       return {
-        isActive: true,
         stepStates: {1:1,2:0,3:0}
       }
     },
@@ -56,7 +59,7 @@
       }
     },
     computed: {
-      ...mapGetters(['products'])
+      ...mapGetters(['product'])
     }
   }
 </script>
