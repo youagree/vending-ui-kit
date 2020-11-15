@@ -19,7 +19,7 @@
       <div class="order__box" v-bind:class="getBoxClass(2)">
         <OrderBoxHeader step="2" label="Оплата" />
         <div class="order__box-content" v-if="stepStates[2]">
-          <Payment v-bind:paymentMethod="paymentMethod" />
+          <Payment v-bind:paymentMethod="paymentMethod" v-bind:sum="product.price" />
         </div>
       </div>
       <div class="order__box" v-bind:class="getBoxClass(3)">
