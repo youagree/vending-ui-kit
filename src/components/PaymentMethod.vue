@@ -47,6 +47,7 @@
     methods: {
       setPaymentMethod(methodId = 0){
         this.methodId = methodId
+        this.$emit('changePaymentMethod', methodId)
       }
     }
   }

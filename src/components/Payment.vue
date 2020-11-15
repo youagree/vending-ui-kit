@@ -1,12 +1,13 @@
 <template>
   <div>
-    Payment
+    Payment {{paymentMethod}}
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Payment'
+    name: 'Payment',
+    props: ['paymentMethod'],
   }
 </script>
 

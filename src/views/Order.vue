@@ -13,13 +13,13 @@
       <div class="order__box" v-bind:class="getBoxClass(1)">
         <OrderBoxHeader step="1" label="Выберите способ оплаты" />
         <div class="order__box-content"  v-if="stepStates[1]">
-          <PaymentMethod />
+          <PaymentMethod @changePaymentMethod="changePaymentMethod" />
         </div>
       </div>
       <div class="order__box" v-bind:class="getBoxClass(2)">
         <OrderBoxHeader step="2" label="Оплата" />
         <div class="order__box-content" v-if="stepStates[2]">
-          <Payment />
+          <Payment v-bind:paymentMethod="paymentMethod" />
         </div>
       </div>
       <div class="order__box" v-bind:class="getBoxClass(3)">
@@ -43,6 +43,7 @@
     },
     data: function() {
       return {
+        paymentMethod: 0,
         stepStates: {1:1,2:0,3:0}
       }
     },
@@ -55,6 +56,14 @@
             return 'is-done'
           default:
             return ''
+        }
+      },
+      changePaymentMethod(methodId = 0){
+        this.paymentMethod = methodId
+        if(methodId) {
+          this.stepStates = {1:2,2:1,3:0}
+        } else {
+          this.stepStates = {1:1,2:0,3:0}
         }
       }
     },
