@@ -1,5 +1,5 @@
 import axios from "axios";
-const dev_mode = 0
+let dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
 axios.defaults.baseURL = '/ui/vending'
 
 export default {
