@@ -23,18 +23,17 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     name: 'Payment',
     props: ['paymentMethod', 'sum'],
-    data: function() {
-      return {
-        incomeSum: 0
-      }
-    },
     methods: {
       isFullPrice(){
         return this.sum <= this.incomeSum
       }
+    },
+    computed: {
+      ...mapGetters(['incomeSum'])
     }
   }
 </script>

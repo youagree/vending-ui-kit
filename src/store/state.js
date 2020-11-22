@@ -26,5 +26,6 @@ export default {
     //   description: 'Газированный напиток "Coca Cola Вишня". Объем 1л',
     //   price: 120
     // }
-  ]
+  ],
+  incomeSum: 0
 }

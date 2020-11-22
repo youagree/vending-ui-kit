@@ -65,4 +65,10 @@ export default {
     }
   },
 
+  setIncomeSum: (state, payload) => {
+    if(state) {
+      state.incomeSum = payload
+    }
+  }
+
 }

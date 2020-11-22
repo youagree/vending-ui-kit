@@ -13,7 +13,7 @@
       <div class="order__box" v-bind:class="getBoxClass(1)">
         <OrderBoxHeader step="1" label="Выберите способ оплаты" />
         <div class="order__box-content"  v-if="stepStates[1]">
-          <PaymentMethod @changePaymentMethod="changePaymentMethod" />
+          <PaymentMethod @changePaymentMethod="changePaymentMethod" @setThirdStep="setThirdStep" />
         </div>
       </div>
       <div class="order__box" v-bind:class="getBoxClass(2)">
@@ -65,6 +65,11 @@
         } else {
           this.stepStates = {1:1,2:0,3:0}
         }
+      },
+      setThirdStep() {
+        console.log(1111)
+        this.stepStates[2] = 2
+        this.stepStates[3] = 1
       }
     },
     computed: {

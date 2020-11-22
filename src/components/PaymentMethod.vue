@@ -37,18 +37,66 @@
 </template>
 
 <script>
+  import axios from "axios";
+  import { mapGetters } from 'vuex'
   export default {
     name: 'PaymentMethod',
+    created() {
+      this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
+    },
     data: function () {
       return {
-        methodId: 0
+        timerId: 0,
+        methodId: 0,
+        isCheckPayStatus: false
       }
     },
     methods: {
       setPaymentMethod(methodId = 0){
         this.methodId = methodId
+        const methodName = (methodId === 1) ? 'n' : 'b'
         this.$emit('changePaymentMethod', methodId)
+        let url
+        if(this.dev_mode){
+          url = `payment${this.product.id}.json`
+        } else {
+          url = 'payment/' + this.product.id
+          axios.post(url, {payMethod: this.product.price + ' ' + methodName});
+        }
+        this.isCheckPayStatus = true
+        this.checkPayStatus()
+      },
+      checkPayStatus() {
+        let url
+        if(this.dev_mode){
+          url = `payment/${this.product.id}/payStatus.json`
+        } else {
+          url = 'payment/' + this.product.id + '/payStatus'
+        }
+        this.timerId = setInterval(() => {
+          if(this.isCheckPayStatus) {
+            axios.get(url).then(response => {
+              const currentMoney = response.data.currentMoney ?? 0
+              this.$store.commit('setIncomeSum', currentMoney)
+              if(response.data.paymentStatus === 's' && currentMoney >= this.product.price) {
+                this.isCheckPayStatus = false
+                clearInterval(this.timerId)
+                this.giveProduct()
+              }
+
+            });
+          }
+        }, 2000)
+      },
+      giveProduct(){
+        this.$emit('setThirdStep')
       }
+    },
+    beforeDestroy () {
+      clearInterval(this.timerId)
+    },
+    computed: {
+      ...mapGetters(['product'])
     }
   }
 </script>

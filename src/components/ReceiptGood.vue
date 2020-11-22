@@ -1,6 +1,6 @@
 <template>
   <div>
-    ReceiptGood
+    Автомат подготавливает товар к получению
   </div>
 </template>
 
