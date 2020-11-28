@@ -12,7 +12,7 @@ export default {
     // }
   ],
   currentCategory: null,
-  product: {id: '0', image: '',description: '',price:0},
+  product: {id: '0', choiceNumber: 11, image: '',description: '',price:0},
   products: [
     // {
     //   id: '1',

@@ -25,7 +25,7 @@
       <div class="order__box" v-bind:class="getBoxClass(3)">
         <OrderBoxHeader step="3" label="Получение товара" />
         <div class="order__box-content"  v-if="stepStates[3]">
-          <ReceiptGood />
+          <ReceiptGood @eventEndOrder="eventEndOrder" />
         </div>
       </div>
     </div>
@@ -67,9 +67,11 @@
         }
       },
       setThirdStep() {
-        console.log(1111)
         this.stepStates[2] = 2
         this.stepStates[3] = 1
+      },
+      eventEndOrder() {
+        console.log('end order')
       }
     },
     computed: {
