@@ -71,7 +71,7 @@
         if(this.dev_mode){
           url = `payment/${this.product.id}/payStatus.json`
         } else {
-          url = 'payment/' + this.product.id + '/payStatus'
+          url = 'payment/' + this.product.id + '/payStatus?price=' + this.product.price
         }
         this.timerId = setInterval(() => {
           if(this.isCheckPayStatus) {
