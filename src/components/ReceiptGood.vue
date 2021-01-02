@@ -27,17 +27,21 @@ export default {
   methods: {
     productGive() {
       let url, number = this.product.choiceNumber
-      if(this.dev_mode){
-        url = `motors${number}.json`
-      } else {
-        url = 'motors/' + number
-      }
-      axios.get(url).then(response => {
+
+      let checkMotorStatus = (response) => {
         if(response.data.motorStatus === 's') {
           this.progressPercent = 100
+          console.log(123,this.progressPercent, response.data.motorStatus)
           setTimeout(() => {this.$emit('eventEndOrder')}, 1000)
         }
-      });
+      }
+      if(this.dev_mode){
+        url = `motors${number}.json`
+        axios.get(url).then(checkMotorStatus)
+      } else {
+        url = 'motors/' + number
+        axios.get(url).post(checkMotorStatus)
+      }
     }
   },
   computed: {
