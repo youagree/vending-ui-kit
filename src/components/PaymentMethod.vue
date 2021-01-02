@@ -62,7 +62,7 @@
           url = `payment${this.product.id}.json`
         } else {
           url = 'payment/' + this.product.id
-          axios.post(url, {payMethod: this.product.price + ' ' + methodName});
+          axios.post(url, {payMethod: methodName});
         }
         this.isCheckPayStatus = true
         this.checkPayStatus()

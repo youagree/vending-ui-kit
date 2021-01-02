@@ -31,7 +31,6 @@ export default {
       let checkMotorStatus = (response) => {
         if(response.data.motorStatus === 's') {
           this.progressPercent = 100
-          console.log(123,this.progressPercent, response.data.motorStatus)
           setTimeout(() => {this.$emit('eventEndOrder')}, 1000)
         }
       }

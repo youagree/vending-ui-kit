@@ -89,7 +89,6 @@
         this.stepStates[3] = 1
       },
       eventEndOrder() {
-        console.log('end order')
         this.stepStates[4] = 2
       },
       getCashBack() {
