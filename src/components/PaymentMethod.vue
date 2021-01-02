@@ -51,6 +51,7 @@
         isCheckPayStatus: false
       }
     },
+    props: ['paramPaymentMethod'],
     methods: {
       setPaymentMethod(methodId = 0){
         this.methodId = methodId
@@ -90,6 +91,14 @@
       },
       giveProduct(){
         this.$emit('setThirdStep')
+      }
+    },
+    watch: {
+      paramPaymentMethod: function(newVal) {
+        this.methodId = newVal
+        if (this.methodId === 0) {
+          this.isCheckPayStatus = false
+        }
       }
     },
     beforeDestroy () {

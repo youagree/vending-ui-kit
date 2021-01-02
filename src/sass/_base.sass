@@ -58,3 +58,64 @@ body
   &.active
     background-color: $g-color-accent
     color: #fff
+
+/* The Modal (background) */
+.modal
+  background-color: rgba(0,0,0,0.4) /* Black w/ opacity */
+  display: none /* Hidden by default */
+  height: 100% /* Full height */
+  left: 0
+  padding-top: 300px /* Location of the box */
+  position: fixed /* Stay in place */
+  overflow: auto /* Enable scroll if needed */
+  top: 0
+  width: 100% /* Full width */
+  z-index: 1 /* Sit on top */
+
+  &.active
+    display: block
+
+/* Modal Content */
+.modal-content
+  background-color: #fefefe
+  border: 1px solid black
+  border-radius: 5px
+  min-height: 100px
+  margin: auto
+  padding: 10px 30px
+  width: 320px
+  .title
+    border-bottom: 1px solid $g-color-border
+    font-size: 20px
+    font-weight: 500
+    padding: 15px
+    text-align: center
+  .description
+    font-size: 17px
+    padding: 10px
+    text-align: center
+  .buttons
+    text-align: center
+  button
+    align-items: center
+    border: 1px solid $g-color-border
+    border-radius: 5px
+    color: $g-color-accent
+    display: inline-flex
+    justify-content: center
+    margin: 20px 0
+    padding: 8px 15px
+    width: 50%
+    &:hover, &:active, &:focus
+      border: 1px solid $g-color-border
+      outline-color: $g-color-border
+    &.active
+      background-color: $g-color-accent
+      color: #fff
+    &:first-child
+      border-right: none
+      border-bottom-right-radius: 0
+      border-top-right-radius: 0
+    &:last-child
+      border-bottom-left-radius: 0
+      border-top-left-radius: 0

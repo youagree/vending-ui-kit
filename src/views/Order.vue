@@ -14,13 +14,15 @@
         <div class="order__box" v-bind:class="getBoxClass(1)">
           <OrderBoxHeader step="1" label="Выберите способ оплаты" />
           <div class="order__box-content"  v-if="stepStates[1]">
-            <PaymentMethod @changePaymentMethod="changePaymentMethod" @setThirdStep="setThirdStep" />
+            <PaymentMethod @changePaymentMethod="changePaymentMethod" @setThirdStep="setThirdStep"
+            :paramPaymentMethod="paymentMethod"/>
           </div>
         </div>
         <div class="order__box" v-bind:class="getBoxClass(2)">
           <OrderBoxHeader step="2" label="Оплата" />
           <div class="order__box-content" v-if="stepStates[2]">
-            <Payment v-bind:paymentMethod="paymentMethod" v-bind:sum="product.price" />
+            <Payment v-bind:paymentMethod="paymentMethod" v-bind:sum="product.price"
+                     @setFirstStep="setFirstStep"/>
           </div>
         </div>
         <div class="order__box" v-bind:class="getBoxClass(3)">
@@ -77,6 +79,10 @@
           this.stepStates[1] = 1
           this.stepStates[2] = 0
         }
+      },
+      setFirstStep(){
+        this.paymentMethod = 0
+        this.stepStates = {1:1,2:0,3:0,4:0}
       },
       setThirdStep() {
         this.stepStates[2] = 2

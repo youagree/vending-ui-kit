@@ -14,8 +14,20 @@
           <p>Поднесите устройство оплаты к терминалу, расположенному под планшетом</p>
         </div>
         <div class="cancel-payment">
-          <a href="#">Отменить покупку</a>
+          <a href="#" v-on:click.prevent="modalCancelStatus = true">Отменить покупку</a>
           <p>После оплаты товара отмена покупки невозможна</p>
+        </div>
+
+        <div class="modal" v-bind:class="{'active': modalCancelStatus}">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <p class="title">Отмена покупки</p>
+            <p class="description">Вы действительно хотите отменить покупку?</p>
+            <div class="buttons">
+              <button class="button" v-on:click.prevent="requestCancelPayment">Да</button>
+              <button class="button" v-on:click.prevent="modalCancelStatus = false">Нет</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -24,12 +36,32 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import axios from "axios";
   export default {
     name: 'Payment',
     props: ['paymentMethod', 'sum'],
+    created() {
+      this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
+    },
+    data: function () {
+      return {
+        modalCancelStatus: false
+      }
+    },
     methods: {
       isFullPrice(){
         return this.sum <= this.incomeSum
+      },
+      requestCancelPayment(){
+        this.$emit('setFirstStep')
+        this.$store.commit('setIncomeSum', 0)
+        let url
+        if(this.dev_mode){
+          url = `paymentCancel.json`
+        } else {
+          url = 'paymentCancel'
+          axios.post(url, {currentMoneyCount: this.incomeSum});
+        }
       }
     },
     computed: {
