@@ -39,7 +39,7 @@ export default {
         axios.get(url).then(checkMotorStatus)
       } else {
         url = 'motors/' + number
-        axios.get(url).post(checkMotorStatus)
+        axios.post(url).then(checkMotorStatus)
       }
     }
   },
