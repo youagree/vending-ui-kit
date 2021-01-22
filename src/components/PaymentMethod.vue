@@ -98,9 +98,9 @@
       checkCanDispense(){
         let url
         if(this.dev_mode){
-          url = `canDispense.json`
+          url = `dispense/canDispense.json`
         } else {
-          url = 'canDispense'
+          url = 'dispense/canDispense'
         }
 
         try {

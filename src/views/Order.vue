@@ -110,8 +110,8 @@
               url = `dispense${cashback}.json`
               response = axios.get(url);
             } else {
-              url = 'dispense'
-              response = axios.post(url, {dispenseValue: cashback});
+              url = 'dispense/' + cashback
+              response = axios.post(url);
             }
           } catch (e) {console.warn(e.message)}
           response.then((r) => {console.log('Response for dispense',r.data)})
