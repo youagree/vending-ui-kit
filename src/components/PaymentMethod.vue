@@ -3,6 +3,7 @@
     <div class="payment-method">
       <div class="payment-method__col">
         <button class="button button_payment payment-method__button"
+                :disabled="!this.canDispense"
                 v-bind:class="{ active: this.methodId === 1 }"
                 v-on:click="setPaymentMethod(1)">
           Купюрами и монетами
@@ -43,12 +44,14 @@
     name: 'PaymentMethod',
     created() {
       this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
+      this.checkCanDispense()
     },
     data: function () {
       return {
         timerId: 0,
         methodId: 0,
-        isCheckPayStatus: false
+        isCheckPayStatus: false,
+        canDispense: false
       }
     },
     props: ['paramPaymentMethod'],
@@ -91,6 +94,20 @@
       },
       giveProduct(){
         this.$emit('setThirdStep')
+      },
+      checkCanDispense(){
+        let url
+        if(this.dev_mode){
+          url = `canDispense.json`
+        } else {
+          url = 'canDispense'
+        }
+
+        try {
+          axios
+            .get(url)
+            .then((r) => {this.canDispense = r.data.canDispense === "true"})
+        } catch (e) {console.warn(e.message)}
       }
     },
     emits:['changePaymentMethod','setThirdStep'],
