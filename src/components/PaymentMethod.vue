@@ -93,6 +93,7 @@
         this.$emit('setThirdStep')
       }
     },
+    emits:['changePaymentMethod','setThirdStep'],
     watch: {
       paramPaymentMethod: function(newVal) {
         this.methodId = newVal

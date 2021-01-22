@@ -35,7 +35,7 @@
     </div>
     <div v-else class="end-step">
       <img src="/icon-success.png" alt="success order">
-      <div v-if="getCashBack()" class="cash-back">
+      <div v-if="paymentMethod === 1" class="cash-back">
         Ваша сдача: {{getCashBack()}} ₽
       </div>
       <h1>Спасибо за покупку. Заберите товар в нижнем окне</h1>
@@ -46,12 +46,19 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import axios from "axios";
 
   export default {
     name: 'Order',
     created() {
+      this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
       const prodId = this.$route.params.id
       this.$store.commit('setProduct', prodId)
+    },
+    updated() {
+      if(this.stepStates[4] ){
+        this.returnOfCashback()
+      }
     },
     data: function() {
       return {
@@ -93,6 +100,22 @@
       },
       getCashBack() {
         return this.incomeSum - this.product.price
+      },
+      returnOfCashback() {
+        const cashback = this.getCashBack()
+        if (cashback){
+          let url, response
+          try {
+            if(this.dev_mode){
+              url = `dispense${cashback}.json`
+              response = axios.get(url);
+            } else {
+              url = 'dispense'
+              response = axios.post(url, {dispenseValue: cashback});
+            }
+          } catch (e) {console.warn(e.message)}
+          response.then((r) => {console.log('Response for dispense',r.data)})
+        }
       }
     },
     computed: {
