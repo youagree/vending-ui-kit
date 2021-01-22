@@ -57,9 +57,9 @@
         this.$store.commit('setIncomeSum', 0)
         let url
         if(this.dev_mode){
-          url = `paymentCancel.json`
+          url = `payment/paymentCancel.json`
         } else {
-          url = 'paymentCancel'
+          url = '/payment/paymentCancel'
           axios.post(url, {currentMoneyCount: this.incomeSum});
         }
       }
