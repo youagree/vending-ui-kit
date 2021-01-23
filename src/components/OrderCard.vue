@@ -1,7 +1,9 @@
 <template>
   <div class="order-card">
     <div class="order-card__image">
-      <img :src="product.image" :alt="product.name">
+      <img
+        :src="product.image"
+        :alt="product.name">
     </div>
     <div class="order-card__box">
       <span class="order-card__info">Вы покупаете</span>

@@ -48,6 +48,7 @@
         modalCancelStatus: false
       }
     },
+    emits: ['setFirstStep'],
     methods: {
       isFullPrice(){
         return this.sum <= this.incomeSum

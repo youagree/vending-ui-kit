@@ -1,11 +1,17 @@
 <template>
   <div class="product-card">
     <div class="product-card__image">
-      <img :src="product.image" :alt="product.name">
+      <img
+        :src="product.image"
+        :alt="product.name">
     </div>
     <p class="product-card__description">{{product.description}}</p>
     <div class="product-card__actions">
-      <router-link tag="a" :to="'/order/' + product.id" class="button button_accent product-card__buy">Купить</router-link>
+      <router-link tag="a"
+                   :to="'/order/' + product.id"
+                   class="button button_accent product-card__buy">
+        Купить
+      </router-link>
       <div class="product-card__price">{{product.price}} &#8381;</div>
     </div>
   </div>

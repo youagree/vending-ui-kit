@@ -5,7 +5,9 @@
     </div>
     <div class="sidebar__content">
       <div class="sidebar__content-wrap">
-          <CategoryCard :category='category' v-for="category in categories" :key="category.id" />
+          <CategoryCard
+            :category='category' v-for="category in categories"
+            :key="category.id" />
       </div>
     </div>
   </aside>

@@ -4,7 +4,8 @@
        v-on:click="$store.commit('setCurrentCategory', category.id)">
     <div class="overlay"></div>
     <div class="category-card__image">
-      <img :src="category.image" :alt="category.name">
+      <img :src="category.image"
+           :alt="category.name">
     </div>
     <span class="category-card__name">{{category.name}}</span>
   </div>

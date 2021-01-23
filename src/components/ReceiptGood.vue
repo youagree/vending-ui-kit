@@ -24,6 +24,7 @@ export default {
       progressPercent: 0,
     }
   },
+  emits: ['eventEndOrder'],
   methods: {
     productGive() {
       let url, number = this.product.choiceNumber

@@ -7,7 +7,9 @@
           <span class="main__count">{{ products.length }} товаров</span>
         </header>
         <div class="main__lists">
-          <ProductCard :product='product' v-for="product in products" :key="product.id" />
+          <ProductCard
+            :product='product' v-for="product in products"
+            :key="product.id" />
         </div>
       </div>
     </div>
