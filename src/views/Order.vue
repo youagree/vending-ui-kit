@@ -2,7 +2,7 @@
   <div class="order">
     <div v-if="stepStates[4] === 0">
       <div class="order__header">
-        <router-link class="order__back" to="/">
+        <router-link class="order__back" :class="{disable:disableHomeLink}" to="/">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.006 512.006">
             <path d="M388.419,475.59L168.834,256.005L388.418,36.421c8.341-8.341,8.341-21.824,0-30.165s-21.824-8.341-30.165,0    L123.586,240.923c-8.341,8.341-8.341,21.824,0,30.165l234.667,234.667c4.16,4.16,9.621,6.251,15.083,6.251    c5.461,0,10.923-2.091,15.083-6.251C396.76,497.414,396.76,483.931,388.419,475.59z"/>
           </svg>
@@ -63,7 +63,8 @@
     data: function() {
       return {
         paymentMethod: 0,
-        stepStates: {1:1,2:0,3:0,4:0}
+        stepStates: {1:1,2:0,3:0,4:0},
+        disableHomeLink: false
       }
     },
     methods: {
@@ -118,8 +119,24 @@
         }
       }
     },
+    watch: {
+      incomeSum: function(newVal) {
+        if (newVal) {
+          this.disableHomeLink = true
+        }
+      }
+    },
     computed: {
       ...mapGetters(['product','incomeSum'])
+    },
+    beforeRouteLeave(to, from, next) {
+      if(this.incomeSum && this.stepStates[4] === 0) {
+        this.disableHomeLink = true
+        next(false)
+      } else {
+        this.disableHomeLink = false
+        next()
+      }
     }
   }
 </script>

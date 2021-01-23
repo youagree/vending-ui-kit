@@ -55,13 +55,19 @@
       requestCancelPayment(){
         this.$emit('setFirstStep')
         this.$store.commit('setIncomeSum', 0)
-        let url
-        if(this.dev_mode){
-          url = `payment/paymentCancel.json`
-        } else {
-          url = '/payment/paymentCancel'
-          axios.post(url, {currentMoneyCount: this.incomeSum});
-        }
+        let url, response
+        try {
+          if(this.dev_mode){
+            url = `/payment/paymentCancel.json`
+            response = axios.get(url);
+          } else {
+            url = '/payment/paymentCancel'
+            response = axios.post(url, {currentMoneyCount: this.incomeSum})
+          }
+          response.then(() => {
+            this.$router.push('/')
+          })
+        } catch (e) {console.warn(e.message)}
       }
     },
     computed: {
