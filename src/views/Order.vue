@@ -113,10 +113,10 @@
           let url, response
           try {
             if(this.dev_mode){
-              url = `dispense${cashback}.json`
+              url = `payment/dispense${cashback}.json`
               response = axios.get(url);
             } else {
-              url = 'dispense/' + cashback
+              url = 'payment/dispense/' + cashback
               response = axios.post(url);
             }
           } catch (e) {console.warn(e.message)}

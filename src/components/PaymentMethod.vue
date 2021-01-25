@@ -98,15 +98,15 @@
       checkCanDispense(){
         let url
         if(this.dev_mode){
-          url = `dispense/canDispense.json`
+          url = `payment/dispense/canDispense.json`
         } else {
-          url = 'dispense/canDispense'
+          url = 'payment/dispense/canDispense'
         }
 
         try {
           axios
             .get(url)
-            .then((r) => {this.canDispense = r.data.canDispense === "true"})
+            .then((r) => {this.canDispense = r.data.canDispense === true})
         } catch (e) {console.warn(e.message)}
       }
     },
