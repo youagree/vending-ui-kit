@@ -56,6 +56,7 @@
   export default {
     name: 'Order',
     created() {
+      this.$store.commit('setIncomeSum', 0)
       this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
       const prodId = this.$route.params.id
       this.$store.commit('setProduct', prodId)
