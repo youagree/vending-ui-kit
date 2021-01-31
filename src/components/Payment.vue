@@ -55,7 +55,6 @@
       },
       requestCancelPayment(){
         this.$emit('setFirstStep')
-        this.$store.commit('setIncomeSum', 0)
         let url, response
         try {
           if(this.dev_mode){
@@ -66,6 +65,7 @@
             response = axios.post(url, {currentMoneyCount: this.incomeSum})
           }
           response.then(() => {
+            this.$store.commit('setIncomeSum', 0)
             this.$router.push('/')
           })
         } catch (e) {console.warn(e.message)}
