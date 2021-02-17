@@ -44,6 +44,7 @@
     name: 'PaymentMethod',
     created() {
       this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
+      this.timerValue = this.dev_mode ? 3000 : 500
       this.checkCanDispense()
     },
     data: function () {
@@ -90,7 +91,7 @@
 
             });
           }
-        }, 2000)
+        }, this.timerValue)
       },
       giveProduct(){
         this.$emit('setThirdStep')
