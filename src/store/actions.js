@@ -12,5 +12,12 @@ export default {
       const {data} = await axios.get('canDispense')
       commit('setCanDispense', data.canDispense ?? false)
     } catch (e) {console.warn(e.message)}
+  },
+  returnOfCashback: async ({ getters }) => {
+    if(getters['cashBack'] > 0) {
+      try {
+        await axios.post('dispense/' + getters['cashBack'])
+      } catch (e) {console.warn(e.message)}
+    }
   }
 }

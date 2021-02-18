@@ -51,7 +51,6 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import axios from "axios";
 
   export default {
     name: 'Order',
@@ -63,7 +62,7 @@
     },
     updated() {
       if(this.stepStates[4] ){
-        this.returnOfCashback()
+        this.$store.dispatch('returnOfCashback')
       }
     },
     data: function() {
@@ -107,22 +106,6 @@
       },
       getCashBack() {
         return this.incomeSum - this.product.price
-      },
-      returnOfCashback() {
-        const cashback = this.getCashBack()
-        if (cashback){
-          let url, response
-          try {
-            if(this.dev_mode){
-              url = `payment/dispense${cashback}.json`
-              response = axios.get(url);
-            } else {
-              url = 'payment/dispense/' + cashback
-              response = axios.post(url);
-            }
-          } catch (e) {console.warn(e.message)}
-          response.then((r) => {console.log('Response for dispense',r.data)})
-        }
       }
     },
     watch: {

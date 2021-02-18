@@ -5,5 +5,9 @@ export default {
   currentCategory: state => state.currentCategory,
   canDispense: state => state.canDispense,
   incomeSum: state => state.incomeSum,
-  isCheckPayStatus: state => state.isCheckPayStatus
+  isCheckPayStatus: state => state.isCheckPayStatus,
+  cashBack: state => {
+    const price = state.product.price ?? 0
+    return state.incomeSum - price
+  }
 }
