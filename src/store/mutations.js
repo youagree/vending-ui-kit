@@ -48,20 +48,10 @@ export default {
         });
     }
   },
-  setProduct: (state, payload = null) => {
-    if(state && payload) {
-      let url
-      if(dev_mode){
-        url = `products${payload}.json`
-      } else {
-        url = `products/${payload}`
-      }
-      axios.get(url)
-        .then(response => {
-          let product = response.data
-          product.image = 'data:image/png;base64,' + product.image
-          state.product = product
-        });
+  setProduct: (state, product = null) => {
+    if(state && product && typeof product === 'object') {
+      product.image = 'data:image/png;base64,' + product.image
+      state.product = product
     }
   },
 
