@@ -51,7 +51,6 @@
       return {
         timerId: 0,
         methodId: 0,
-        isCheckPayStatus: false,
         canDispense: false
       }
     },
@@ -68,7 +67,7 @@
           url = 'payment/' + this.product.id
           axios.post(url, {payMethod: methodName});
         }
-        this.isCheckPayStatus = true
+        this.$store.commit('setIsCheckPayStatus',true)
         this.checkPayStatus()
       },
       checkPayStatus() {
@@ -79,12 +78,12 @@
           url = 'payment/' + this.product.id + '/payStatus?price=' + this.product.price
         }
         this.timerId = setInterval(() => {
-          if(this.isCheckPayStatus) {
+          if(this.$store.getters['isCheckPayStatus']) {
             axios.get(url).then(response => {
               const currentMoney = response.data.currentMoney ?? 0
               this.$store.commit('setIncomeSum', currentMoney)
               if(response.data.paymentStatus === 's' && currentMoney >= this.product.price) {
-                this.isCheckPayStatus = false
+                this.$store.commit('setIsCheckPayStatus',false)
                 clearInterval(this.timerId)
                 this.giveProduct()
               }
@@ -116,7 +115,7 @@
       paramPaymentMethod: function(newVal) {
         this.methodId = newVal
         if (this.methodId === 0) {
-          this.isCheckPayStatus = false
+          this.$store.commit('setIsCheckPayStatus',false)
         }
       }
     },

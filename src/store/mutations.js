@@ -54,11 +54,13 @@ export default {
       state.product = product
     }
   },
-
   setIncomeSum: (state, payload) => {
     if(state) {
       state.incomeSum = payload
     }
-  }
+  },
+  setIsCheckPayStatus: (state, value) => {
+    state.isCheckPayStatus = value
+  },
 
 }

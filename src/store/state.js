@@ -27,5 +27,6 @@ export default {
     //   price: 120
     // }
   ],
-  incomeSum: 0
+  incomeSum: 0,
+  isCheckPayStatus:false
 }
