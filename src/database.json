@@ -1,4 +1,5 @@
 {
+  "canDispense": {"canDispense":true},
   "products": [
     {
       "id": 1,

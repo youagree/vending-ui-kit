@@ -62,5 +62,8 @@ export default {
   setIsCheckPayStatus: (state, value) => {
     state.isCheckPayStatus = value
   },
+  setCanDispense: (state, value) => {
+    state.canDispense = value
+  }
 
 }
