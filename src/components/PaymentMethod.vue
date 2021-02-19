@@ -59,13 +59,7 @@
         this.methodId = methodId
         const methodName = (methodId === 1) ? 'n' : 'b'
         this.$emit('changePaymentMethod', methodId)
-        let url
-        if(this.dev_mode){
-          url = `payment${this.product.id}.json`
-        } else {
-          url = 'payment/' + this.product.id
-          axios.post(url, {payMethod: methodName});
-        }
+        this.$store.dispatch('runPayment', {payMethod: methodName})
         this.$store.commit('setIsCheckPayStatus',true)
         this.checkPayStatus()
       },
