@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import axios from "axios";
+
 export default {
   name: 'ReceiptGood',
   created() {
@@ -27,21 +27,13 @@ export default {
   emits: ['eventEndOrder'],
   methods: {
     productGive() {
-      let url, number = this.product.choiceNumber
-
       let checkMotorStatus = (response) => {
         if(response.data.motorStatus === 's') {
           this.progressPercent = 100
           setTimeout(() => {this.$emit('eventEndOrder')}, 1000)
         }
       }
-      if(this.dev_mode){
-        url = `motors${number}.json`
-        axios.get(url).then(checkMotorStatus)
-      } else {
-        url = 'motors/' + number
-        axios.post(url).then(checkMotorStatus)
-      }
+      this.$store.dispatch('runMotors', checkMotorStatus)
     }
   },
   computed: {

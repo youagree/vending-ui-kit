@@ -3,6 +3,11 @@
     "canDispense": true
   },
   "dispense": {},
+  "motors": [
+    {"id": 11, "motorStatus": "s"},
+    {"id": 21, "motorStatus": "s"},
+    {"id": 31, "motorStatus": "s"}
+  ],
   "payment": {},
   "paymentCancel": {},
   "products": [

@@ -36,5 +36,15 @@ export default {
       const url = (dev_mode ? '' : 'payment/') + 'paymentCancel'
       await axios.post(url, {currentMoneyCount})
     } catch (e) {console.error(e.message)}
+  },
+  runMotors: async ({ getters }, callback) => {
+    try { //Запуск двигателей для выдачи товара motors/{id}
+      const number = getters['product'].choiceNumber
+      if(dev_mode){
+        axios.get('motors/' + number).then(callback)
+      } else {
+        axios.post('motors/' + number).then(callback)
+      }
+    } catch (e) {console.error(e.message)}
   }
 }
