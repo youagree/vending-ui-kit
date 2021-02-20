@@ -3,6 +3,21 @@ import axios from "@/axios/axios"
 const dev_mode = process.env.NODE_ENV === 'development'
 
 export default {
+  setCategories: async ({ commit }) => {
+    try {
+      const {data} = await axios.get('categories')
+      commit('setCategories', data)
+    } catch (e) {console.error(e.message)}
+  },
+  setProducts: async ({ commit, getters }) => {
+    try {
+      const categoryId = getters["currentCategory"] ?? 0
+      if(categoryId) {
+        const {data} = await axios.get('categories/' + categoryId)
+        commit('setProducts', data.products)
+      }
+    } catch (e) {console.error(e.message)}
+  },
   setProduct: async ( { commit }, prodId) => {
     try {
       const {data} = await axios.get('products/' + prodId)

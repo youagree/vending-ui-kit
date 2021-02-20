@@ -19,11 +19,11 @@
   export default {
     name: 'Sidebar',
     mounted() {
-      this.$store.commit('setCategories')
+      this.$store.dispatch('setCategories')
     },
     watch: {
       categories() {this.$store.commit('setCurrentCategory')},
-      currentCategory() {this.$store.commit('setProducts')}
+      currentCategory() {this.$store.dispatch('setProducts')}
     },
     computed: {
       ...mapGetters(['categories', 'currentCategory'])
