@@ -9,8 +9,13 @@
           <slot />
         </p>
         <div class="buttons">
-          <button class="button" @click="$emit('success')">Да</button>
-          <button class="button" @click="$emit('close')">Нет</button>
+          <button class="button"
+                  @click="$emit('success')"
+                  :style= "[cancelButton ? {'border-right':'none'} : {}]"
+                  v-if="successButton">Да</button>
+          <button class="button"
+                  @click="$emit('close')"
+                  v-if="cancelButton">Нет</button>
         </div>
       </div>
 
@@ -24,11 +29,19 @@ export default {
   props: {
     title: {
       type: String
+    },
+    successButton: {
+      default: true,
+      type: Boolean
+    },
+    cancelButton: {
+      default: true,
+      type: Boolean
     }
   },
   computed: {
     hasSlotData() {
-      return this.$slots.default;
+      return this.$slots.default
     }
   }
 }
@@ -38,7 +51,7 @@ export default {
 .modal
   //background: #fff
   border-radius: 10px
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2)
+  //box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2)
   left: 50%
   padding: 1rem
   position: fixed
@@ -94,7 +107,7 @@ export default {
       background-color: $g-color-accent
       color: #fff
     &:first-child
-      border-right: none
+      //border-right: none
       border-bottom-right-radius: 0
       border-top-right-radius: 0
     &:last-child

@@ -1,5 +1,5 @@
 <template>
-  <div class="order">
+  <div class="order" @click="waitModalTime = waitModalTimeTarget">
     <div v-if="stepStates[4] === 0">
       <div class="order__header">
         <router-link class="order__back"
@@ -46,11 +46,18 @@
       <h1>Спасибо за покупку. Заберите товар в нижнем окне</h1>
       <button @click="$router.push('/')" class="button button_accent">На главный экран</button>
     </div>
+    <app-modal title="Вы еще здесь?"
+               v-if="waitModal"
+               :cancelButton="false"
+               @success="waitModalTime = waitModalTimeTarget">
+      Покупка будет отменена через {{waitModalTime}} секунд
+    </app-modal>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
+  import AppModal from '@/components/AppModal'
 
   export default {
     name: 'Order',
@@ -59,6 +66,7 @@
       this.dev_mode = process.env.NODE_ENV === 'development' ? 1 : 0
       const prodId = this.$route.params.id
       this.$store.dispatch('setProduct',prodId)
+      this.initWaitModal()
     },
     updated() {
       if(this.stepStates[4] ){
@@ -69,7 +77,11 @@
       return {
         paymentMethod: 0,
         stepStates: {1:1,2:0,3:0,4:0},
-        disableHomeLink: false
+        disableHomeLink: false,
+        waitModal: false,
+        waitModalTimerId: null,
+        waitModalTime: 0,
+        waitModalTimeTarget: 30
       }
     },
     methods: {
@@ -106,6 +118,17 @@
       },
       getCashBack() {
         return this.incomeSum - this.product.price
+      },
+      initWaitModal() {
+        this.waitModalTime = this.waitModalTimeTarget
+        this.waitModalTimerId = setInterval(() => {
+          this.waitModalTime--
+        }, 1000)
+      },
+      waitModalExpired() {
+        this.stepStates[4] = 1
+        // this.$store.dispatch('returnOfCashback')
+        this.$router.push({name:"Home"})
       }
     },
     watch: {
@@ -113,7 +136,16 @@
         if (newVal) {
           this.disableHomeLink = true
         }
+      },
+      waitModalTime: function (newVal) {
+        this.waitModal = newVal < 16
+        if (this.waitModalTime < 1) {
+          this.waitModalExpired()
+        }
       }
+    },
+    components: {
+      AppModal
     },
     computed: {
       ...mapGetters(['product','incomeSum'])
@@ -126,7 +158,10 @@
         this.disableHomeLink = false
         next()
       }
-    }
+    },
+    beforeDestroy () {
+      clearInterval(this.waitModalTimerId)
+    },
   }
 </script>
 
