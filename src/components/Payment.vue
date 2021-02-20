@@ -17,18 +17,12 @@
           <a href="#" v-on:click.prevent="modalCancelStatus = true">Отменить покупку</a>
           <p>После оплаты товара отмена покупки невозможна</p>
         </div>
-
-        <div class="modal" v-bind:class="{'active': modalCancelStatus}">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <p class="title">Отмена покупки</p>
-            <p class="description">Вы действительно хотите отменить покупку?</p>
-            <div class="buttons">
-              <button class="button" v-on:click.prevent="requestCancelPayment">Да</button>
-              <button class="button" v-on:click.prevent="modalCancelStatus = false">Нет</button>
-            </div>
-          </div>
-        </div>
+        <app-modal title="Отмена покупки"
+                   v-if="modalCancelStatus"
+                   @close="modalCancelStatus = false"
+                   @success="requestCancelPayment">
+          Вы действительно хотите отменить покупку?
+        </app-modal>
       </div>
     </div>
   </div>
@@ -36,6 +30,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import AppModal from '@/components/AppModal'
   export default {
     name: 'Payment',
     props: ['paymentMethod', 'sum'],
@@ -58,6 +53,9 @@
         this.$store.commit('setIncomeSum', 0)
         this.$router.push('/')
       }
+    },
+    components: {
+      AppModal
     },
     computed: {
       ...mapGetters(['incomeSum'])
