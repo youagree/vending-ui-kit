@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import axios from "axios";
   import { mapGetters } from 'vuex'
   export default {
     name: 'PaymentMethod',
@@ -64,24 +63,18 @@
         this.checkPayStatus()
       },
       checkPayStatus() {
-        let url
-        if(this.dev_mode){
-          url = `payment/${this.product.id}/payStatus.json`
-        } else {
-          url = 'payment/' + this.product.id + '/payStatus?price=' + this.product.price
+        const callback = (response) => {
+          const currentMoney = response.data.currentMoney ?? 0
+          this.$store.commit('setIncomeSum', currentMoney)
+          if(response.data.paymentStatus === 's' && currentMoney >= this.product.price) {
+            this.$store.commit('setIsCheckPayStatus',false)
+            clearInterval(this.timerId)
+            this.giveProduct()
+          }
         }
         this.timerId = setInterval(() => {
           if(this.$store.getters['isCheckPayStatus']) {
-            axios.get(url).then(response => {
-              const currentMoney = response.data.currentMoney ?? 0
-              this.$store.commit('setIncomeSum', currentMoney)
-              if(response.data.paymentStatus === 's' && currentMoney >= this.product.price) {
-                this.$store.commit('setIsCheckPayStatus',false)
-                clearInterval(this.timerId)
-                this.giveProduct()
-              }
-
-            });
+            this.$store.dispatch('runPayStatus', callback)
           }
         }, this.timerValue)
       },

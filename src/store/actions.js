@@ -46,5 +46,17 @@ export default {
         axios.post('motors/' + number).then(callback)
       }
     } catch (e) {console.error(e.message)}
+  },
+  runPayStatus: async ({ getters }, callback) => {
+    try { //Запрос текущего количества внесенных средств payment/{id}/payStatus
+      const product = getters['product']
+      let url
+      if(dev_mode) {
+        url = 'payStatus/' + product.id + '?price=' + product.price
+      } else {
+        url = 'payment/' + product.id + '/payStatus?price=' + product.price
+      }
+      axios.get(url).then(callback)
+    } catch (e) {console.error(e.message)}
   }
 }

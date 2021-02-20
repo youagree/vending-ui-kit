@@ -8,6 +8,23 @@
     {"id": 21, "motorStatus": "s"},
     {"id": 31, "motorStatus": "s"}
   ],
+  "payStatus": [
+    {
+      "id": 1,
+      "currentMoney": "30",
+      "paymentStatus": "s"
+    },
+    {
+      "id": 2,
+      "currentMoney": "25",
+      "paymentStatus": "s"
+    },
+    {
+      "id": 3,
+      "currentMoney": "30",
+      "paymentStatus": "s"
+    }
+  ],
   "payment": {},
   "paymentCancel": {},
   "products": [
