@@ -8,6 +8,6 @@ export default {
   isCheckPayStatus: state => state.isCheckPayStatus,
   cashBack: state => {
     const price = state.product.price ?? 0
-    return state.incomeSum - price
+    return price - state.incomeSum
   }
 }
