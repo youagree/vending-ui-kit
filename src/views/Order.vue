@@ -136,6 +136,8 @@
         if (newVal) {
           this.disableHomeLink = true
         }
+        //reset 'waitModalTime' when 'incomeSum' change
+        this.waitModalTime = this.waitModalTimeTarget
       },
       waitModalTime: function (newVal) {
         this.waitModal = newVal < 16
