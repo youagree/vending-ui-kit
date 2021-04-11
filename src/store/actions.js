@@ -39,6 +39,15 @@ export default {
       } catch (e) {console.error(e.message)}
     }
   },
+  returnOfIncomeSum: async ({ getters }) => {
+    const incomeSum = getters['incomeSum']
+    if(incomeSum > 0) {
+      try {
+        const url = (dev_mode ? '' : 'payment/') + 'dispense/' + incomeSum
+        await axios.post(url)
+      } catch (e) {console.error(e.message)}
+    }
+  },
   runPayment: async ( { getters }, payload) => {
     try { //Запуск процесса оплаты
       const id = getters['product'].id ?? 0

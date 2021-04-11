@@ -127,7 +127,7 @@
       },
       waitModalExpired() {
         this.stepStates[4] = 1
-        this.$store.dispatch('returnOfCashback')
+        this.$store.dispatch('returnOfIncomeSum')
         this.$router.push({name:"Home"})
       }
     },
